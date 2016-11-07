@@ -7,11 +7,12 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import se.plushogskolan.taskhandler.exception.ServiceException;
 import se.plushogskolan.taskhandler.model.User;
 import se.plushogskolan.taskhandler.repository.UserRepository;
 
 @Service
-public final class UserService {
+public class UserService {
 
 	private final UserRepository userRepository;
 
@@ -22,7 +23,11 @@ public final class UserService {
 
 	@Transactional
 	public User saveOrUpdateUser(User user) {
-		return userRepository.save(user);
+		if (user.getUserName().length() > 9) {
+			return userRepository.save(user);
+		} else {
+			throw new ServiceException("Username to short!");
+		}
 	}
 
 	@Transactional
@@ -34,6 +39,54 @@ public final class UserService {
 
 	public List<User> findUserByNumber(String number) {
 		return userRepository.findByNumber(number);
+	}
+
+	public List<User> findUserByFirstName(String firstName) {
+		return userRepository.findByFirstName(firstName);
+	}
+
+	public List<User> findUserByLastName(String lastName) {
+		return userRepository.findByLastName(lastName);
+	}
+
+	public List<User> findUserByUsername(String username) {
+		return userRepository.findByUsername(username);
+	}
+
+	public List<User> findUserByLastNameAndUsername(String lastName, String username) {
+		return userRepository.findByLastNameAndUsername(lastName, username);
+	}
+
+	public List<User> findUserByFirstNameAndUsername(String firstName, String username) {
+		return userRepository.findByFirstNameAndUsername(firstName, username);
+	}
+
+	public List<User> findUserByFirstNameAndLastName(String firstName, String lastName) {
+		return userRepository.findByFirstNameAndLastName(firstName, lastName);
+	}
+
+	public List<User> findUserByFirstNameAndLastNameAndUsername(String firstName, String lastName, String username) {
+		return userRepository.findByFirstNameAndLastNameAndUsername(firstName, lastName, username);
+	}
+
+	public List<User> findUserByFirstNameOrLastName(String firstName, String lastName) {
+		return userRepository.findByFirstNameOrLastName(firstName, lastName);
+	}
+
+	public List<User> findUserByLastNameOrUsername(String lastName, String username) {
+		return userRepository.findByLastNameOrUsername(lastName, username);
+	}
+
+	public List<User> findUserByFirstNameOrUsername(String firstName, String username) {
+		return userRepository.findByFirstNameOrUsername(firstName, username);
+	}
+
+	public List<User> findUserByFirstNameOrLastNameOrUsername(String firstName, String lastName, String username) {
+		return userRepository.findByFirstNameOrLastNameOrUsername(firstName, lastName, username);
+	}
+
+	public List<User> findUserByTeam(Long id){
+		return userRepository.findByTeamId(id);
 	}
 
 }

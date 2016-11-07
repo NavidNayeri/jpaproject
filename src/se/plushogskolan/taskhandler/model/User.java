@@ -3,6 +3,7 @@ package se.plushogskolan.taskhandler.model;
 import java.util.Collection;
 import java.util.HashSet;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -15,10 +16,10 @@ public final class User extends AbstractModelClass {
 
 	private String firstName;
 	private String lastName;
-	private String userName;
+	private String username;
 	private String password;
 	private String number;
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Team team;
 	@ManyToMany
 	private Collection<WorkItem> workitems;
@@ -30,7 +31,7 @@ public final class User extends AbstractModelClass {
 		this.isActive = isActive.equals("1") ? true : false;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.userName = userName;
+		this.username = userName;
 		this.password = password;
 		workitems = new HashSet<>();
 	}
@@ -59,11 +60,11 @@ public final class User extends AbstractModelClass {
 	}
 
 	public String getUserName() {
-		return userName;
+		return username;
 	}
 
 	public void setUserName(String userName) {
-		this.userName = userName;
+		this.username = userName;
 	}
 
 	public String getPassword() {
