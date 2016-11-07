@@ -22,7 +22,7 @@ public final class User extends AbstractModelClass {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Team team;
 	@ManyToMany
-	private Collection<WorkItem> workitems;
+	private Collection<WorkItem> workItems;
 	private boolean isActive;
 	
 	protected User() {}
@@ -33,7 +33,7 @@ public final class User extends AbstractModelClass {
 		this.lastName = lastName;
 		this.username = userName;
 		this.password = password;
-		workitems = new HashSet<>();
+		workItems = new HashSet<>();
 	}
 
 
@@ -91,12 +91,12 @@ public final class User extends AbstractModelClass {
 		this.team = team;
 	}
 
-	public Collection<WorkItem> getWorkitems() {
-		return workitems;
+	public Collection<WorkItem> getWorkItems() {
+		return workItems;
 	}
 
-	public void setWorkitems(Collection<WorkItem> workitems) {
-		this.workitems = workitems;
+	public void setWorkItems(Collection<WorkItem> workItems) {
+		this.workItems = workItems;
 	}
 
 	public String getNumber() {

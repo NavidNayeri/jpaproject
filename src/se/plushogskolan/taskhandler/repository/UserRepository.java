@@ -8,7 +8,6 @@ import se.plushogskolan.taskhandler.model.User;
 
 public interface UserRepository extends CrudRepository<User, Long> {
 	
-	
 	List<User> findByNumber(String number);
 	
 	List<User> findByFirstName(String firstName);
