@@ -11,4 +11,6 @@ public interface WorkItemRepository extends CrudRepository<WorkItem, Long> {
 	
 	List<WorkItem> findByStatus(WorkItemStatus status);
 	
+	List<WorkItem> findByDescriptionContaining(String text);
+	
 }

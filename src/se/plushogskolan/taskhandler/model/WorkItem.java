@@ -17,6 +17,7 @@ public class WorkItem extends AbstractModelClass {
 	
 	
 	private String name;	
+	private String description;
 	private WorkItemStatus status;
 	@ManyToMany(cascade = CascadeType.ALL)
 	private Collection<User> users;
@@ -26,9 +27,10 @@ public class WorkItem extends AbstractModelClass {
 	
 	protected WorkItem(){}
 	
-	public WorkItem(String name, WorkItemStatus workItemStatus){
+	public WorkItem(String name, String description, WorkItemStatus workItemStatus) {
 		this.name = name;
 		this.status = workItemStatus;
+		this.description = description;
 		issues = new HashSet<>();
 	}
 
@@ -46,6 +48,14 @@ public class WorkItem extends AbstractModelClass {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public Collection<Issue> getIssues() {
