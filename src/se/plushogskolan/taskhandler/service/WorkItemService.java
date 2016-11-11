@@ -24,10 +24,13 @@ public class WorkItemService {
 	
 	private final UserRepository userRepository;
 	
+	private final IssueService issueService;
+	
 	@Autowired
-	public WorkItemService (WorkItemRepository workItemRepository, UserRepository userRepository) {
+	public WorkItemService(WorkItemRepository workItemRepository, UserRepository userRepository, IssueService issueService) {
 		this.workItemRepository = workItemRepository;
 		this.userRepository = userRepository;
+		this.issueService = issueService;
 	}
 	
 	@Transactional
@@ -45,7 +48,7 @@ public class WorkItemService {
 	@Transactional
 	public WorkItem removeWorkItem(Long id) {
 		WorkItem workItem = workItemRepository.findOne(id);
-		//   issueService.deleteIssueByWorkItemId(id);
+		issueService.deleteIssueByWorkItemId(id);
 		workItemRepository.delete(workItem);
 		return workItem;
 	}

@@ -17,7 +17,6 @@ public class Issue extends AbstractModelClass {
 	public Issue(String reason, int workItemId) {
 		this.reason = reason;
 	}
-	
 
 	public String getReason() {
 		return reason;
@@ -25,6 +24,10 @@ public class Issue extends AbstractModelClass {
 
 	public void setReason(String reason) {
 		this.reason = reason;
+	}
+	
+	public Long getWorkItemId() {
+		return workItem.getId();
 	}
 		
 }
