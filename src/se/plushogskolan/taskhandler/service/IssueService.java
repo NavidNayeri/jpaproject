@@ -27,8 +27,9 @@ public class IssueService {
 		this.workItemRepository = workItemRepository;
 	}
 	
-	public Issue saveOrUpdateIssue(Issue issue) {
-		WorkItem workItem = workItemRepository.findOne(issue.getWorkItemId());
+	public Issue saveIssue(Issue issue) {
+		WorkItem workItem = workItemRepository.findOne(issue.getWorkItem().getId());
+		
 		if (workItem.getStatus().equals(WorkItemStatus.DONE)) {
 			workItem.setStatus(WorkItemStatus.UNSTARTED);
 			workItemRepository.save(workItem);
@@ -36,19 +37,25 @@ public class IssueService {
 		}
 		throw new ServiceException("Can only assign issue to work item with status : DONE");
 	}
+	public Issue updateIssue(Issue issue) {
+		return issueRepository.save(issue);
+	}
 	
 	public Collection<WorkItem> getAllWorkItemsWithIssues() {
 		Collection<WorkItem> workItems = new HashSet<>();
 		for (Issue issue : issueRepository.findAll()) {
-			workItems.add(workItemRepository.findOne(issue.getWorkItemId()));
+			workItems.add(workItemRepository.findOne(issue.getWorkItem().getId()));
 		}
 		return workItems;
 	}
 	
 	public Issue deleteIssueByWorkItemId(Long id) {
-		Issue issue = issueRepository.findByWorkItemId(id).get(0);
-		issueRepository.delete(id);
-		return issue;
+		if(!issueRepository.findByWorkItemId(id).isEmpty()){
+			Issue issue = issueRepository.findByWorkItemId(id).get(0);
+			issueRepository.delete(id);			
+			return issue;
+		}
+		return null;
 	}
 
 }

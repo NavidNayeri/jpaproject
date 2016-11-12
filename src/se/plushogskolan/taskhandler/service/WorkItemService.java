@@ -80,7 +80,7 @@ public class WorkItemService {
 		Collection<WorkItem> workItems = new HashSet<>();
 		List<User> users = userRepository.findByTeamId(id);
 		for (User user : users) {
-			workItems.addAll(user.getWorkItems());
+			user.getWorkItems().forEach(w -> workItems.add(w));
 		}
 		return workItems;
 	}

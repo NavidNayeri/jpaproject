@@ -28,9 +28,9 @@ public class AppConfig {
 	public DataSource getDataSource(){
 		HikariConfig config = new HikariConfig();
 		config.setDriverClassName("com.mysql.jdbc.Driver");
-		config.setJdbcUrl("jdbc:mysql://localhost:3306/jpaproject");
+		config.setJdbcUrl("jdbc:mysql://localhost:3306/jpa");
 		config.setUsername("root");
-		config.setPassword("root");
+		config.setPassword("Hejsan1");
 		
 		return new HikariDataSource(config);
 	}

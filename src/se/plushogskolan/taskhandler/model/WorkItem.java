@@ -2,12 +2,11 @@ package se.plushogskolan.taskhandler.model;
 
 
 import java.util.Collection;
-import java.util.HashSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import se.plushogskolan.taskhandler.assets.WorkItemStatus;
 import se.plushogskolan.taskhandler.model.abstractclass.AbstractModelClass;
@@ -19,11 +18,11 @@ public class WorkItem extends AbstractModelClass {
 	private String name;	
 	private String description;
 	private WorkItemStatus status;
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy = "workItems", cascade = CascadeType.ALL)
 	private Collection<User> users;
 	
-	@OneToMany(mappedBy = "workItem")
-	private Collection<Issue> issues;
+	@OneToOne(mappedBy = "workItem")
+	private Issue issues;
 	
 	protected WorkItem(){}
 	
@@ -31,7 +30,6 @@ public class WorkItem extends AbstractModelClass {
 		this.name = name;
 		this.status = workItemStatus;
 		this.description = description;
-		issues = new HashSet<>();
 	}
 
 	public WorkItemStatus getStatus() {
@@ -58,11 +56,19 @@ public class WorkItem extends AbstractModelClass {
 		this.description = description;
 	}
 
-	public Collection<Issue> getIssues() {
+	public Collection<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Collection<User> users) {
+		this.users = users;
+	}
+
+	public Issue getIssues() {
 		return issues;
 	}
 
-	public void setIssues(Collection<Issue> issues) {
+	public void setIssues(Issue issues) {
 		this.issues = issues;
 	}
 }

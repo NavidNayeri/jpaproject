@@ -1,5 +1,6 @@
 package se.plushogskolan.taskhandler.service;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -7,8 +8,10 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import se.plushogskolan.taskhandler.assets.WorkItemStatus;
 import se.plushogskolan.taskhandler.exception.ServiceException;
 import se.plushogskolan.taskhandler.model.User;
+import se.plushogskolan.taskhandler.model.WorkItem;
 import se.plushogskolan.taskhandler.repository.UserRepository;
 
 @Service
@@ -31,9 +34,16 @@ public class UserService {
 	}
 
 	@Transactional
-	public User setUserStatus(boolean status, Long id) {
+	public User setUserStatus(boolean active, Long id) {
 		User user = userRepository.findOne(id);
-		user.setActive(status);
+		if (!active) {
+			Collection<WorkItem> workItems = user.getWorkItems();
+			for (WorkItem workItem : workItems) {
+				workItem.setStatus(WorkItemStatus.UNSTARTED);
+			}
+			user.setWorkItems(workItems);
+		}
+		user.setActive(active);
 		return userRepository.save(user);
 	}
 
@@ -85,7 +95,7 @@ public class UserService {
 		return userRepository.findByFirstNameOrLastNameOrUsername(firstName, lastName, username);
 	}
 
-	public List<User> findUserByTeam(Long id){
+	public List<User> findUserByTeam(Long id) {
 		return userRepository.findByTeamId(id);
 	}
 

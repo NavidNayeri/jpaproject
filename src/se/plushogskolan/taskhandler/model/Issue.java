@@ -1,7 +1,7 @@
 package se.plushogskolan.taskhandler.model;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import se.plushogskolan.taskhandler.model.abstractclass.AbstractModelClass;
 
@@ -9,7 +9,7 @@ import se.plushogskolan.taskhandler.model.abstractclass.AbstractModelClass;
 public class Issue extends AbstractModelClass {
 
 	private String reason;
-	@ManyToOne
+	@OneToOne
 	private WorkItem workItem;
 	
 	protected Issue(){}
@@ -25,9 +25,12 @@ public class Issue extends AbstractModelClass {
 	public void setReason(String reason) {
 		this.reason = reason;
 	}
-	
-	public Long getWorkItemId() {
-		return workItem.getId();
+
+	public WorkItem getWorkItem() {
+		return workItem;
 	}
-		
+
+	public void setWorkItem(WorkItem workItem) {
+		this.workItem = workItem;
+	}	
 }

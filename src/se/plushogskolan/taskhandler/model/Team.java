@@ -2,6 +2,7 @@ package se.plushogskolan.taskhandler.model;
 
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
@@ -11,15 +12,15 @@ import se.plushogskolan.taskhandler.model.abstractclass.AbstractModelClass;
 public class Team extends AbstractModelClass {
 
 	private String teamName;
-	@OneToMany(mappedBy = "team")
+	@OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
 	private Collection<User> users;
 	private boolean isTeamActive;
 	
 	protected Team(){}
 
-	public Team(String teamName, String isActive) {
+	public Team(String teamName, boolean isActive) {
 		this.teamName = teamName;
-		this.isTeamActive = isActive.equals("1") ? true : false;
+		this.isTeamActive = isActive;
 	}
 
 	@Override
