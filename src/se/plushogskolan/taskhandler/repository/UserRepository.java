@@ -2,11 +2,16 @@ package se.plushogskolan.taskhandler.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import se.plushogskolan.taskhandler.model.User;
 
-public interface UserRepository extends CrudRepository<User, Long> {
+public interface UserRepository extends CrudRepository<User, Long>, PagingAndSortingRepository<User, Long> {
+	
+	Page<User> findAll(Pageable page);
 	
 	List<User> findByNumber(String number);
 	

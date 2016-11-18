@@ -1,12 +1,15 @@
 package se.plushogskolan.taskhandler.model;
 
 
+import java.time.LocalDate;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+
+import org.springframework.data.annotation.LastModifiedDate;
 
 import se.plushogskolan.taskhandler.assets.WorkItemStatus;
 import se.plushogskolan.taskhandler.model.abstractclass.AbstractModelClass;
@@ -23,6 +26,9 @@ public class WorkItem extends AbstractModelClass {
 	
 	@OneToOne(mappedBy = "workItem")
 	private Issue issues;
+	
+	@LastModifiedDate
+	private LocalDate lastModifiedDate = LocalDate.now();
 	
 	protected WorkItem(){}
 	
@@ -70,5 +76,9 @@ public class WorkItem extends AbstractModelClass {
 
 	public void setIssues(Issue issues) {
 		this.issues = issues;
+	}
+	
+	public void setLastModifiedDate(LocalDate lastModifiedDate) {
+		this.lastModifiedDate = lastModifiedDate;
 	}
 }

@@ -6,6 +6,8 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import se.plushogskolan.taskhandler.assets.WorkItemStatus;
@@ -24,7 +26,6 @@ public class UserService {
 		this.userRepository = userRepository;
 	}
 
-	@Transactional
 	public User saveOrUpdateUser(User user) {
 		if (user.getUserName().length() > 9) {
 			return userRepository.save(user);
@@ -97,6 +98,10 @@ public class UserService {
 
 	public List<User> findUserByTeam(Long id) {
 		return userRepository.findByTeamId(id);
+	}
+	
+	public Page<User> findAllUsingPage(Pageable page){
+		return userRepository.findAll(page);
 	}
 
 }

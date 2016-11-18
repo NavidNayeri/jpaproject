@@ -3,7 +3,11 @@ package se.plushogskolan.taskhandler.service;
 import java.util.Collection;
 import java.util.HashSet;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import se.plushogskolan.taskhandler.assets.WorkItemStatus;
@@ -26,7 +30,7 @@ public class IssueService {
 		this.issueRepository = issueRepository;
 		this.workItemRepository = workItemRepository;
 	}
-	
+	@Transactional
 	public Issue saveIssue(Issue issue) {
 		WorkItem workItem = workItemRepository.findOne(issue.getWorkItem().getId());
 		
@@ -37,6 +41,7 @@ public class IssueService {
 		}
 		throw new ServiceException("Can only assign issue to work item with status : DONE");
 	}
+	
 	public Issue updateIssue(Issue issue) {
 		return issueRepository.save(issue);
 	}
@@ -56,6 +61,10 @@ public class IssueService {
 			return issue;
 		}
 		return null;
+	}
+	
+	public Page<Issue> findAllUsingPage(Pageable page){
+		return issueRepository.findAll(page);
 	}
 
 }

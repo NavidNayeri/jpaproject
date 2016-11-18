@@ -4,7 +4,6 @@ import java.sql.SQLException;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import se.plushogskolan.taskhandler.assets.WorkItemStatus;
 import se.plushogskolan.taskhandler.assets.config.AppConfig;
 import se.plushogskolan.taskhandler.model.WorkItem;
 import se.plushogskolan.taskhandler.service.TeamService;
@@ -19,7 +18,7 @@ public final class Main {
 			TeamService teamService = ctx.getBean(TeamService.class);
 			WorkItemService workItemService = ctx.getBean(WorkItemService.class);
 			
-			workItemService.assignWorkItemToUser(21l, 29l);
+
 		}
 
 	}

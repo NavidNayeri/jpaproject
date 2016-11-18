@@ -26,12 +26,10 @@ public class TeamService {
 
 	}
 
-	@Transactional
 	public Team saveOrUpdateTeam(Team team) {
 		return teamRepository.save(team);
 	}
 
-	@Transactional
 	public Team setTeamStatus(boolean status, Long id) {
 		Team team = teamRepository.findOne(id);
 		team.setTeamActive(status);

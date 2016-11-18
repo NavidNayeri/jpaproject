@@ -1,12 +1,16 @@
 package se.plushogskolan.taskhandler.service;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
+import javax.sql.DataSource;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import se.plushogskolan.taskhandler.assets.WorkItemStatus;
@@ -26,16 +30,23 @@ public class WorkItemService {
 	
 	private final IssueService issueService;
 	
+	private final DataSource dataSource;
+	
+	
 	@Autowired
-	public WorkItemService(WorkItemRepository workItemRepository, UserRepository userRepository, IssueService issueService) {
+	public WorkItemService(WorkItemRepository workItemRepository, UserRepository userRepository, IssueService issueService, DataSource dataSource) {
+		this.dataSource = dataSource;
 		this.workItemRepository = workItemRepository;
 		this.userRepository = userRepository;
 		this.issueService = issueService;
 	}
 	
-	@Transactional
 	public WorkItem saveOrUpdateWorkItem(WorkItem workItem) {
 		return workItemRepository.save(workItem);
+	}
+	
+	public WorkItem findOne(Long id){
+		return workItemRepository.findOne(id);
 	}
 	
 	@Transactional
@@ -91,6 +102,14 @@ public class WorkItemService {
 	
 	public List<WorkItem> findWorkItemByDescriptionContaining(String text) {
 		return workItemRepository.findByDescriptionContaining(text);
+	}
+	
+	public Page<WorkItem> findAllUsingPage(Pageable page){
+		return workItemRepository.findAll(page);
+	}
+	
+	public List<WorkItem> getWorkItemHistory(LocalDate fromDate, LocalDate toDate){
+		return workItemRepository.getWorkItemHistory(fromDate, toDate);
 	}
 	
 }
