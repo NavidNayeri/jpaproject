@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
-import javax.sql.DataSource;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +28,10 @@ public class WorkItemService {
 	private final UserRepository userRepository;
 	
 	private final IssueService issueService;
-	
-	private final DataSource dataSource;
-	
+		
 	
 	@Autowired
-	public WorkItemService(WorkItemRepository workItemRepository, UserRepository userRepository, IssueService issueService, DataSource dataSource) {
-		this.dataSource = dataSource;
+	public WorkItemService(WorkItemRepository workItemRepository, UserRepository userRepository, IssueService issueService) {
 		this.workItemRepository = workItemRepository;
 		this.userRepository = userRepository;
 		this.issueService = issueService;

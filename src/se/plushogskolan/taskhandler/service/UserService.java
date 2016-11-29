@@ -47,7 +47,11 @@ public class UserService {
 		user.setActive(active);
 		return userRepository.save(user);
 	}
-
+	
+	public User findOne(Long id) {
+		return userRepository.findOne(id);
+	}
+	
 	public List<User> findUserByNumber(String number) {
 		return userRepository.findByNumber(number);
 	}

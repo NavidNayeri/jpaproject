@@ -1,6 +1,7 @@
 package se.plushogskolan.taskhandler.model;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -19,6 +20,7 @@ public class Team extends AbstractModelClass {
 	protected Team(){}
 
 	public Team(String teamName, boolean isActive) {
+		users = new HashSet<>();
 		this.teamName = teamName;
 		this.isTeamActive = isActive;
 	}

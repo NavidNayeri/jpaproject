@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import se.plushogskolan.taskhandler.exception.ServiceException;
 import se.plushogskolan.taskhandler.model.Team;
+import se.plushogskolan.taskhandler.model.User;
 import se.plushogskolan.taskhandler.repository.TeamRepository;
 import se.plushogskolan.taskhandler.repository.UserRepository;
 
@@ -43,11 +44,12 @@ public class TeamService {
 	}
 
 	@Transactional
-	public Team AddUserToTeam(Long userId, Long teamId) {
+	public User addUserToTeam(Long userId, Long teamId) {
 		Team returnTeam = teamRepository.findOne(teamId);
 		if (returnTeam.getUsers().size() < 10 && userRepository.findOne(userId).getTeam() == null) {
-			returnTeam.getUsers().add(userRepository.findOne(userId));
-			return teamRepository.save(returnTeam);
+			User user = userRepository.findOne(userId);
+			user.setTeam(returnTeam);
+			return userRepository.save(user);
 		} else if (userRepository.findOne(userId).getTeam() != null) {
 			throw new ServiceException("User is already in team!");
 		} else {

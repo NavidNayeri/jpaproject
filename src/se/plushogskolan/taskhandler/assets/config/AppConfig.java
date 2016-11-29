@@ -1,7 +1,5 @@
 package se.plushogskolan.taskhandler.assets.config;
 
-import java.net.URL;
-
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
@@ -21,9 +19,6 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
 @EnableJpaRepositories("se.plushogskolan.taskhandler.repository")

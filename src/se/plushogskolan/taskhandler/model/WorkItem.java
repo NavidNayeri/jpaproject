@@ -81,4 +81,20 @@ public class WorkItem extends AbstractModelClass {
 	public void setLastModifiedDate(LocalDate lastModifiedDate) {
 		this.lastModifiedDate = lastModifiedDate;
 	}
+
+	public LocalDate getLastModifiedDate() {
+		return lastModifiedDate;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof WorkItem) {
+			WorkItem other = (WorkItem) obj;
+			return description.equals(other.description) && 
+					name.equals(other.name) && status.equals(other.status);
+		}
+		return false;
+	}
+	
+	
 }

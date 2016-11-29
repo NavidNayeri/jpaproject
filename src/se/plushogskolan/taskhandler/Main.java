@@ -18,7 +18,6 @@ public final class Main {
 			TeamService teamService = ctx.getBean(TeamService.class);
 			WorkItemService workItemService = ctx.getBean(WorkItemService.class);
 			
-
 		}
 
 	}
